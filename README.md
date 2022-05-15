@@ -18,22 +18,21 @@ Some tips and tricks that I used to make the wrapper working on my computer shou
 3. LimeSDR Mini
 4. Windows 10 (I used family edition 64 bit with 20go RAM and an intel processor i3). Also work with smaller configuration (4go RAM).
  
-### Installation
- 
-Steps for the successful installation and make it work with Matlab:
+### Steps for the successful installation and make it work with Matlab:
  
 1. Maybe you should update the Firmware of the limeSDR mini `limeutil --update` in the command line or with powershell.
 2. locate YOUR LimeSuite.dll file (mine was here: E:\PothosSDR\bin) and copy it and paste it in your matlab working directory. 
 3. Copy and paste the 'libLimeSuite_thunk_pcwin64.dll' that is present in this github repository (it’s the same as the one of Damir Rakhimov thus you may also use his file). Alternatively, if you really need to generate your own one, follow the procedure proposed in the github of RakhDamir. I have succeeded to do it using Microsoft visual studio C++ compiler (not mingw64) but I also encounter some problems. Thus, it looks to me far easier to just copy and paste the existing dll.
 3. launch MATLAB and Connect LimeSDR_Mini
 4. Run the example “Very_basicTxRx.m”
+5. You should see a figure with a sine wave with the correct frequency (after a initial delay with nothing) or a sawtooth or square if you choose that option.
 
-Steps to make it work with Simulink:
+### Steps to make it work with Simulink:
 
 1.	create a new blank sheet (.slx).
 2.	 add a block called “matlab system”. 
 3.	Once the block in the sheet, double click to open it and choose “limeSDR_Simulink_Wrapper_2022.m”.
-4.	 Then open again the block and you will be able to choose your parameter (RX, TX, gainRx, gainTX, carrier frequency, sample rate etc…).
+4.	Then open again the block and you will be able to choose your parameter (RX, TX, gainRx, gainTX, carrier frequency, sample rate etc…).
 5.	Add the block that fit your need: audio sink, scope, downsample and upsample, FIR filter, modulator/demodulator, from multimedia file, spectrum analyzer etc… and enjoy!
 6.	Don’t forget that frame-based computation is preferred to sample-base computation (see block buffer and unbuffer for instance). When using the scope with frame, in the parameter of the scope, don’t forget to choose “frame based”. If using high sample rate (30M), one may encounter “pause” or problems due to difficulty to compute in real time. For this same reason, using spectrum analyser in real time is not recommended since it consumes lot of computation and thus impact the signal.
 
